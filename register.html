@@ -39,6 +39,7 @@
 
         .logo-img {
             height: 200px;
+            margin: 0;
         }
 
         @media (max-width: 767.98px) {
@@ -47,9 +48,15 @@
             }
         }
 
-
         .signin-section {
             color: white;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 767.98px) {
+            .signin-section {
+                padding-left: 0;
+            }
         }
 
         .signin-text {
@@ -343,7 +350,7 @@
                     </div>
 
                     <div class="signin-section mt-5">
-                        <div class="signin-text mt-5">Already have an account?</div>
+                        <div class="signin-text">Already have an account?</div>
                         <a href="login.html" class="signin-link">Sign In</a>
                     </div>
                 </div>

@@ -46,6 +46,19 @@
 
         .register-section {
             color: white;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 767.98px) {
+            .register-section {
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .register-section {
+                padding-left: 0;
+            }
         }
 
         .register-text {
@@ -225,11 +238,11 @@
         <div class="row g-0 min-vh-100">
             <div class="col-lg-5 col-md-4 col-12">
                 <div class="left-panel">
-                    <div class="logo-container">
+                    <div class="logo-container" onclick="window.location.href='index.html'">
                         <img src="./public/assets/hero-logo-white.png" alt="HongHui Capital Logo" class="logo-img">
                     </div>
                     <div class="register-section mt-5">
-                        <div class="register-text mt-5">Don't have an account?</div>
+                        <div class="register-text">Don't have an account?</div>
                         <a href="register.html" class="register-link">Create Account</a>
                     </div>
                 </div>
