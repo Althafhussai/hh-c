@@ -1821,26 +1821,6 @@
         const dropdownItems = document.querySelectorAll('.dropdown-item');
         let currentLanguage = 'english';
 
-        // function updateLanguage(lang) {
-        //     document.querySelectorAll('[data-lang]').forEach(element => {
-        //         const key = element.getAttribute('data-lang');
-        //         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-        //             element.placeholder = languageData[lang][key] || element.placeholder;
-        //         } else {
-        //             element.innerHTML = languageData[lang][key] || element.innerHTML;
-        //         }
-        //     });
-
-        //     const logo = document.querySelector('.logo-cont');
-        //     if (logo) {
-        //         logo.src = languageData[lang]['logo'] || logo.src;
-        //         logo.alt = lang === 'english' ? 'English Logo' : 'Chinese Logo';
-        //     }
-
-        //     languageDropdown.textContent = lang === 'english' ? 'English' : lang === 'chinese' ? '繁體中文' : '日本語';
-        //     currentLanguage = lang;
-        //     document.documentElement.lang = lang === 'english' ? 'en' : lang === 'chinese' ? 'zh' : 'ja';
-        // }
         function updateLanguage(lang) {
             document.querySelectorAll('[data-lang]').forEach(element => {
                 const key = element.getAttribute('data-lang');
