@@ -1822,6 +1822,9 @@
         let currentLanguage = 'english';
 
         function updateLanguage(lang) {
+            // Save the language choice
+            localStorage.setItem("preferredLanguage", lang);
+
             document.querySelectorAll('[data-lang]').forEach(element => {
                 const key = element.getAttribute('data-lang');
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -1830,16 +1833,39 @@
                     element.innerHTML = languageData[lang][key] || element.innerHTML;
                 }
             });
+
             // Update logo image
             const logo = document.querySelector('.logo-cont');
             if (logo) {
                 logo.src = languageData[lang]['logo'] || logo.src;
                 logo.alt = lang === 'english' ? 'English Logo' : 'Chinese Logo';
             }
-            languageDropdown.textContent = lang === 'english' ? 'English' : lang === 'chinese' ? '繁體中文' : '日本語';
+
+            // Update dropdown text
+            languageDropdown.textContent =
+                lang === 'english'
+                    ? 'English'
+                    : lang === 'chinese'
+                        ? '繁體中文'
+                        : '日本語';
+
             currentLanguage = lang;
-            document.documentElement.lang = lang === 'english' ? 'en' : lang === 'chinese' ? 'zh' : 'ja';
+
+            // Update <html lang="...">
+            document.documentElement.lang =
+                lang === 'english'
+                    ? 'en'
+                    : lang === 'chinese'
+                        ? 'zh'
+                        : 'ja';
         }
+
+        // ✅ On page load, restore saved language
+        window.addEventListener("DOMContentLoaded", () => {
+            const savedLang = localStorage.getItem("preferredLanguage") || "english";
+            updateLanguage(savedLang);
+        });
+
 
         dropdownItems.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -1882,7 +1908,7 @@
         });
 
         // Initialize with English
-        updateLanguage('english');
+        // updateLanguage('english');
     </script>
 
     <script>
