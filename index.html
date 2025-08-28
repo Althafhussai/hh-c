@@ -1505,30 +1505,26 @@
                     Ventures Capital Ltd.
                 </p> -->
             </div>
-            <form class="join-form" onsubmit="sendMail(event)" method="POST"
-                action="https://hh-c-backend.vercel.app/api/send-email">
+            <form class="join-form" onsubmit="sendMail(event)">
                 <div class="form-group">
-                    <label for="name" data-lang="joinus-name-label">Full Name<span>*</span></label>
-                    <input type="text" id="name" name="name" required data-lang="joinus-name-placeholder"
-                        placeholder="Enter your full name">
+                    <label for="name">Full Name<span>*</span></label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
                 </div>
                 <div class="form-group">
-                    <label for="email" data-lang="joinus-email-label">Email<span>*</span></label>
-                    <input type="email" id="email" name="email" required data-lang="joinus-email-placeholder"
-                        placeholder="Enter your email">
+                    <label for="email">Email<span>*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
                 </div>
                 <div class="form-group">
-                    <label for="phone" data-lang="joinus-phone-label">Phone<span>*</span></label>
-                    <input type="tel" id="phone" name="phone" required data-lang="joinus-phone-placeholder"
-                        placeholder="Enter your phone number">
+                    <label for="phone">Phone<span>*</span></label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
                 </div>
                 <div class="form-group">
-                    <label for="message" data-lang="joinus-message-label">Message<span>*</span></label>
-                    <textarea id="message" name="message" rows="4" required data-lang="joinus-message-placeholder"
+                    <label for="message">Message<span>*</span></label>
+                    <textarea id="message" name="message" rows="4" required
                         placeholder="Write your message..."></textarea>
                 </div>
                 <div class="form-group text-center mt-4">
-                    <button type="submit" class="submit-btn" data-lang="joinus-submit">Submit</button>
+                    <button type="submit" class="submit-btn">Submit</button>
                 </div>
             </form>
         </div>
@@ -1546,6 +1542,92 @@
             });
         })();
     </script>
+
+    <script>
+        async function sendMail(event) {
+            event.preventDefault(); // stop normal form submit
+
+            const form = event.target;
+
+            const data = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                message: form.message.value
+            };
+
+            try {
+                const res = await fetch("https://hh-c-backend.vercel.app/api/send-email", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await res.json();
+
+                console.log(result)
+
+                if (res.ok && result.success) {
+                    // Create overlay (background dim)
+                    const overlay = document.createElement("div");
+                    overlay.style.position = "fixed";
+                    overlay.style.top = "0";
+                    overlay.style.left = "0";
+                    overlay.style.width = "100%";
+                    overlay.style.height = "100%";
+                    overlay.style.background = "rgba(0,0,0,0.5)";
+                    overlay.style.display = "flex";
+                    overlay.style.alignItems = "center";
+                    overlay.style.justifyContent = "center";
+                    overlay.style.zIndex = "999";
+
+                    // Create success card
+                    const successCard = document.createElement("div");
+                    successCard.style.backgroundColor = "#ffffff";
+                    successCard.style.padding = "2rem";
+                    successCard.style.borderRadius = "12px";
+                    successCard.style.boxShadow = "0 6px 12px rgba(0,0,0,0.3)";
+                    successCard.style.textAlign = "center";
+                    successCard.style.maxWidth = "300px";
+                    successCard.style.width = "90%";
+
+                    successCard.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke="white" 
+                         stroke-width="2" 
+                         stroke-linecap="round" 
+                         stroke-linejoin="round" 
+                         style="width:48px;height:48px;background:green;padding:5px;border-radius:50%;">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h2 style="margin: 0.5rem 0; color: #000000;">Thank You!</h2>
+                <p style="color: #333333;">Your form has been successfully submitted.</p>
+            `;
+
+                    overlay.appendChild(successCard);
+                    document.body.appendChild(overlay);
+
+                    // Auto-remove after 3 seconds
+                    setTimeout(() => {
+                        overlay.remove();
+                    }, 3000);
+
+                    form.reset();
+                } else {
+                    alert("❌ Failed to send. Please try again.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("⚠️ Something went wrong!");
+            }
+        }
+    </script>
+
+
 
 
     <footer class="footer content mt-5 ps-4" style="margin-top: 100px !important;">
