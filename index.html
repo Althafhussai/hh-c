@@ -1505,7 +1505,8 @@
                     Ventures Capital Ltd.
                 </p> -->
             </div>
-            <form class="join-form" action="https://formspree.io/f/meozblep" method="POST">
+            <form class="join-form" onsubmit="sendMail(event)" method="POST"
+                action="https://hh-c-backend.vercel.app/api/send-email">
                 <div class="form-group">
                     <label for="name" data-lang="joinus-name-label">Full Name<span>*</span></label>
                     <input type="text" id="name" name="name" required data-lang="joinus-name-placeholder"
